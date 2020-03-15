@@ -104,7 +104,30 @@ export default {
         this.init()
     },
     methods: {
+        preventPageInspect() {
+            document.addEventListener('contextmenu', function (e) {
+                e.preventDefault();
+            });
+            document.onkeydown = function (e) {
+                if (event.keyCode == 123) {
+                    return false;
+                }
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                    return false;
+                }
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+                    return false;
+                }
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                    return false;
+                }
+                if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                    return false;
+                }
+            }
+        },
         init: async function () {
+            this.preventPageInspect()
             var registry = await Promise.resolve(this.getRegistry())
             console.log('registry: ', registry)
             this.$store.state.recentVideos = registry
@@ -123,10 +146,11 @@ export default {
                 })
             })
         },
-        warn(){
-          Swal.fire({icon:'warning',
-          text:"Website under development",
-          })
+        warn() {
+            Swal.fire({
+                icon: 'warning',
+                text: "Website under development",
+            })
         }
     },
 }

@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     registryURL:'https://api.myjson.com/bins/odagq',
-    thumbnail: '../images/thumbnail_blank.jpg',
+    thumbnail: './images/thumbnail_blank.jpg',
     popularVideos: [
     ],
     recentVideos: [],

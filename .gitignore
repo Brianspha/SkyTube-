@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 /dist
+/embarkArtifacts
+/src/store
 
 # local env files
 .env.local
