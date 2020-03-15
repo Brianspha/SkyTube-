@@ -20,6 +20,5 @@ export default new VueRouter({
             name: "recents",
             component: RecentlyAdded
         }
-    ],
-    mode: "history"
+    ]
 })
