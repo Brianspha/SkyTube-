@@ -1,4 +1,5 @@
 pragma solidity >= 0.5 .0;
+pragma experimental ABIEncoderV2;
 import "C:/Users/Development/Documents/GitHub/skiyatube-poc/.embark/node_modules/@openzeppelin/upgrades/contracts/Initializable.sol";
 import "C:/Users/Development/Documents/GitHub/skiyatube-poc/.embark/node_modules/@openzeppelin/contracts/math/SafeMath.sol";
 
@@ -14,6 +15,7 @@ contract SkiyaTube is Initializable {
         uint256 likes;
         uint256 dislikes;
         uint256 views;
+        uint date_added;
         bool exists;
     }
 
@@ -23,7 +25,7 @@ contract SkiyaTube is Initializable {
 
     /**==================================================================== Contract Globals Definition Start==================================================================== */
     mapping(bytes => Video) videos;
-    bytes[] videos_ids;
+    bytes[] video_ids;
     /**==================================================================== Function Definition Start==================================================================== */
     constructor() public {
 
@@ -37,6 +39,8 @@ contract SkiyaTube is Initializable {
         videos[url].dislikes = 0;
         videos[url].views = 0;
         videos[url].exists = true;
+        videos[url].date_added= now;
+        video_ids.push(url);
         emit addedEvent(true);
         return true;
     }
@@ -65,7 +69,10 @@ contract SkiyaTube is Initializable {
         return true;
     }
 
-    function getVideo(bytes memory url) public view returns(uint256, uint256, uint256) {
-        return (videos[url].likes, videos[url].dislikes, videos[url].views);
+    function getVideo(bytes memory url) public view returns(uint256, uint256, uint256,uint) {
+        return (videos[url].likes, videos[url].dislikes, videos[url].views,videos[url].date_added);
+    }
+    function getVideURLS() public view returns(bytes [] memory){
+        return video_ids;
     }
 }

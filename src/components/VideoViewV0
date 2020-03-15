@@ -1,0 +1,59 @@
+<template>
+<v-row justify="center">
+    <v-dialog v-model="$store.state.selectedVideoPopup">
+        <v-card>
+            <v-card-title class="headline">View Video</v-card-title>
+            <xgplayer :noDestroy="false" :options="{
+        url: $store.state.selectedVideo.url,
+        width: '100%' // Depends on its wrapper element.
+      }"></xgplayer>
+            <v-card-title>
+                {{$store.state.selectedVideo.title}} </v-card-title>
+            <v-card-subtitle>
+                {{$store.state.selectedVideo.views}} views
+            </v-card-subtitle>
+            <v-card-actions>
+                <v-list-item class="grow">
+                    <v-list-item-content>
+                        <v-btn color="green darken-1" text @click="$store.state.selectedVideoPopup=!$store.state.selectedVideoPopup;">
+                            Close
+                        </v-btn>
+                    </v-list-item-content>
+                    <v-row align="center" justify="end">
+                       <!-- <v-btn @click="voteUp" text>
+                            <v-icon class="mr-1" v-ripple="{ center: true }">mdi-heart</v-icon>
+                            <span class="subheading mr-2">{{$store.state.selectedVideo.likes}}</span>
+                        </v-btn>
+                        <v-btn @click="voteDown" text>
+                            <v-icon class="mr-1" v-ripple="{ center: true }">mdi-thumb-down</v-icon>
+                            <span class="subheading">{{$store.state.selectedVideo.dislikes}}</span>
+                        </v-btn> -->
+                    </v-row>
+                </v-list-item>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+</v-row>
+</template>
+
+<script>
+export default {
+
+    data() {
+        return {
+            dialog: false,
+        }
+    },
+    methods: {
+        voteDown() {
+            this.$store.state.selectedVideo.dislikes++
+            console.log('votingDown: ', this.$store.state.selectedVideo.url)
+        },
+        voteUp() {
+            this.$store.state.selectedVideo.likes++
+            console.log('votingDown: ', this.$store.state.selectedVideo.url)
+        }
+
+    }
+}
+</script>

@@ -1,7 +1,7 @@
 const SkiyaTube = require('Embark/contracts/SkiyaTube')
 let accounts = []
 const url = web3.utils.asciiToHex("https://siasky.net/IADUs8d9CQjUO34LmdaaNPK_STuZo24rpKVfYW3wPPM2uQ")
-//console.log('url: ', url)
+console.log('urlHex: ', url, ' urlAsicc: ', web3.utils.toAscii(url))
 config({
     contracts: {
         deploy: {
@@ -58,5 +58,12 @@ contract('SkiyaTube', () => {
         console.log('video details: ', result)
         assert.strictEqual(parseInt(result[0]) === 1 && parseInt(result[0]) === 1 && parseInt(result[0]) === 1, true)
     });
-
+    it('should get all video urls', async () => {
+        const result = await SkiyaTube.methods.getVideURLS().call({
+            gas: 8000000,
+            from: accounts[0]
+        });
+        console.log('video urls: ', result)
+        assert.strictEqual(result.length>0, true)
+    });
 });

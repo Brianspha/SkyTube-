@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <v-navigation-drawer
       v-model="drawer"
+      color="#57b560"
       app
       clipped
     >
@@ -9,6 +10,7 @@
         <v-list-item
           v-for="item in items"
           :key="item.text"
+          :to="item.to"
           link
         >
           <v-list-item-action>
@@ -20,36 +22,12 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-subheader class="mt-4 grey--text text--darken-1">SUBSCRIPTIONS</v-subheader>
-        <v-list>
-          <v-list-item
-            v-for="item in items2"
-            :key="item.text"
-            link
-          >
-            <v-list-item-avatar>
-              <img
-                :src="`https://randomuser.me/api/portraits/men/${item.picture}.jpg`"
-                alt=""
-              >
-            </v-list-item-avatar>
-            <v-list-item-title v-text="item.text" />
-          </v-list-item>
-        </v-list>
-        <v-list-item
-          class="mt-4"
-          link
-        >
-          <v-list-item-action>
-            <v-icon color="grey darken-1">mdi-plus-circle-outline</v-icon>
-          </v-list-item-action>
-          <v-list-item-title class="grey--text text--darken-1">Browse Channels</v-list-item-title>
-        </v-list-item>
         <v-list-item link>
           <v-list-item-action>
-            <v-icon color="grey darken-1">mdi-settings</v-icon>
+            <v-icon color="#57b560">
+              mdi-settings
+            </v-icon>
           </v-list-item-action>
-          <v-list-item-title class="grey--text text--darken-1">Manage Subscriptions</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -57,101 +35,105 @@
     <v-app-bar
       app
       clipped-left
-      color="red"
+      color="#57b560"
       dense
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-icon
-        class="mx-4"
-        large
+      <v-toolbar-title
+        class="mr-12 align-center"
+        v-ripple="{ center: true }"
       >
-        mdi-youtube
-      </v-icon>
-      <v-toolbar-title class="mr-12 align-center">
-        <span class="title">Youtube</span>
+        <span class="title">SkyTube</span>
       </v-toolbar-title>
       <v-spacer />
-      <v-row
-        align="center"
-        style="max-width: 650px"
-      >
-        <v-text-field
-          :append-icon-cb="() => {}"
-          placeholder="Search..."
-          single-line
-          append-icon="mdi-magnify"
-          color="white"
-          hide-details
-        />
-      </v-row>
+      <!--  <v-row align="center" style="max-width: 650px">
+            <v-text-field :append-icon-cb="() => {}" placeholder="Search..." single-line append-icon="mdi-magnify" color="white" hide-details />
+        </v-row>-->
     </v-app-bar>
 
+    <!-- Sizes your content based upon application components -->
     <v-content>
-      <v-container class="fill-height">
-        <v-row
-          justify="center"
-          align="center"
-        >
-          <v-col class="shrink">
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  :href="source"
-                  icon
-                  large
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-code-tags</v-icon>
-                </v-btn>
-              </template>
-              <span>Source</span>
-            </v-tooltip>
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  icon
-                  large
-                  href="https://codepen.io/johnjleider/pen/aezMOO"
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-codepen</v-icon>
-                </v-btn>
-              </template>
-              <span>Codepen</span>
-            </v-tooltip>
-          </v-col>
-        </v-row>
+      <!-- Provides the application the proper gutter -->
+      <v-container fluid>
+        <!-- If using vue-router -->
+        <router-view />
+        <addvideoview />
       </v-container>
     </v-content>
+    <v-btn
+      bottom
+      color="#57b560"
+      dark
+      fab
+      fixed
+      right
+      @click="$store.state.addVideoModal=!$store.state.addVideoModal"
+    >
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
+    <v-footer app>
+      <!-- -->
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-  export default {
-    props: {
-      source: String,
+import addvideoview from './components/AddVideo'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+
+export default {
+    components: {
+        addvideoview
     },
     data: () => ({
-      drawer: null,
-      items: [
-        { icon: 'mdi-trending-up', text: 'Most Popular' },
-        { icon: 'mdi-youtube-subscription', text: 'Subscriptions' },
-        { icon: 'mdi-history', text: 'History' },
-        { icon: 'mdi-playlist-play', text: 'Playlists' },
-        { icon: 'mdi-clock', text: 'Watch Later' },
-      ],
-      items2: [
-        { picture: 28, text: 'Joseph' },
-        { picture: 38, text: 'Apple' },
-        { picture: 48, text: 'Xbox Ahoy' },
-        { picture: 58, text: 'Nokia' },
-        { picture: 78, text: 'MKBHD' },
-      ],
+        drawer: null,
+        items: [{
+                icon: 'mdi-trending-up',
+                text: 'Most Popular',
+                to: "/popular"
+            },
+            {
+                icon: 'mdi-history',
+                text: 'Recently Added',
+                to: '/recents'
+            },
+        ]
     }),
-    created () {
-      this.$vuetify.theme.dark = true
+    mounted() {
+        this.init()
     },
-  }
+    methods: {
+        init: async function () {
+            var registry = await Promise.resolve(this.getRegistry())
+            console.log('registry: ', registry)
+            this.$store.state.recentVideos = registry
+            this.$store.state.popularVideos = registry
+            this.warn()
+        },
+        getRegistry: async function () {
+            let This = this
+            return new Promise((resolve) => {
+                axios.get(this.$store.state.registryURL).then((response) => {
+                    console.log('response: ', response)
+                    resolve(response.data.videos)
+                }).catch((error) => {
+                    console.log('Something went wrong whilst adding video to registry')
+                    resolve(null)
+                })
+            })
+        },
+        warn(){
+          Swal.fire({icon:'warning',
+          text:"Website under development",
+          })
+        }
+    },
+}
 </script>
+
+<style>
+a {
+    text-decoration: none;
+}
+</style>

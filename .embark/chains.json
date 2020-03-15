@@ -75,5 +75,47 @@
       }
     },
     "name": "simulator"
+  },
+  "0x8861b4a3aebfd2922434315f7ae7d157f7776692d561e4a287e7ed1f3e25fdbc": {
+    "contracts": {
+      "0x1995714ab5909e52a2e8362dac239172c47af67bd6aae6c8c75fef498dac0fe2": {
+        "name": "Initializable",
+        "address": "0x3729436804cE0D2Ae1f60154d77410A6c40f030f"
+      },
+      "0x69c86a24bd87d458ff906a52e1a838784887075d991843b18a80f9a18df54d81": {
+        "name": "SkiyaTube",
+        "address": "0x9cf1A4CB845e8A66A536dfd3715d449041735275"
+      },
+      "0x87779443393727c28de85bf9408a507c419d17f86887f65ea14fd898887c45c7": {
+        "name": "SafeMath",
+        "address": "0x2753596Ac2AB98A29214cD7f835362A597C1C0Cd"
+      },
+      "0x428b775dee70d07f051d30f1ed1b04ec0e1d45b292f1c7c30682237a38502f37": {
+        "name": "SkiyaTube",
+        "address": "0x0A14D44Ab56c612e42373004146F1ddbadAD96D5"
+      },
+      "0x4471f6b43058ef1af8464ccc15147457b309dbcb31a1c1b06eb5988e8ab59098": {
+        "name": "SkiyaTube",
+        "address": "0x1608cB2408c82E700E46e080B5076D2273301993"
+      }
+    },
+    "name": "simulator"
+  },
+  "0xf718f96a9205f8afd5300ebedb8847f2d03d507e1b82c9cf04d2dcdf0424ec9a": {
+    "contracts": {
+      "0x1995714ab5909e52a2e8362dac239172c47af67bd6aae6c8c75fef498dac0fe2": {
+        "name": "Initializable",
+        "address": "0x45f3094da11f959aFFcAA6BE121A33C335827a54"
+      },
+      "0x4471f6b43058ef1af8464ccc15147457b309dbcb31a1c1b06eb5988e8ab59098": {
+        "name": "SkiyaTube",
+        "address": "0xd829a9Da5CB26F9137326932D2AcDaeF640296B0"
+      },
+      "0x87779443393727c28de85bf9408a507c419d17f86887f65ea14fd898887c45c7": {
+        "name": "SafeMath",
+        "address": "0x283ef286D541D308E71FcCE95fbE9B6b98191E95"
+      }
+    },
+    "name": "development"
   }
 }
