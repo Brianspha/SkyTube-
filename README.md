@@ -7,6 +7,12 @@ This is a proof of concept youtube clone hosted on skynet i was planning on maki
 
 ![Usage](/screenshots/skytube/SkyTube.gif)
 
+
+### Web Page
+
+[GitHubPages](https://brianspha.github.io/SkyTube-/)
+[SkyLink](https://siasky.net/AADaHwJceThvyeNJflQxKOwZ2I5FkffpAfNYyhGRfkas3A#/popular)
+
 ## Project setup
 ```
 npm install
