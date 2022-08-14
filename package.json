@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@nebulous/skynet": "^1.0.1",
-    "@openzeppelin/contracts": "^2.5.0",
+    "@openzeppelin/contracts": "^4.7.2",
     "@openzeppelin/upgrades": "^2.7.2",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
